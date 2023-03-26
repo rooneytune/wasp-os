@@ -10,13 +10,13 @@ from ubluepy import Service, Characteristic, UUID, Peripheral, constants
 # from ubluepy import Peripheral
 # from ubluepy import Characteristic
 
-FILEVERSION = "1.25"
+
 
 class MyBleApp():
     """A hello ROONEY application for wasp-os."""
     """Name must be 7 chars MAX. Errors occur if longer"""
     NAME = "BLE"
-    
+    FILEVERSION = "1.26"
 
     def __init__(self,msg="BLE App" ):
 
@@ -134,7 +134,7 @@ class MyBleApp():
         self._updateBleInfo("Perif. 1")
         periph.addService(serv_env_sense)
         self._updateBleInfo("Perif. 2")
-        periph.setConnectionHandler(self.event_handler)
+       # periph.setConnectionHandler(self.event_handler)
         periph.advertise(device_name="Roon_Time", services=[serv_env_sense])
         self._updateBleInfo("Advertising")
 

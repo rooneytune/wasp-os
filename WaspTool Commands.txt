@@ -1,0 +1,111 @@
+Mac
+D9:A6:16:D9:E0:46
+
+./micropython/mpy-cross/mpy-cross -mno-unicode -march=armv7m myble.py
+
+./tools/wasptool --binary --upload myble.mpy
+
+cd /home/pi/Documents/Code/Micropython/wasp-os
+tools/wasptool --exec "/home/pi/Documents/Code/Micropython/wasp-os/wasp/apps/hellorooney.py"
+tools/wasptool --exec hellorooney.py
+tools/wasptool --upload hellorooney.py
+
+./tools/wasptool --exec "/home/pi/Documents/Code/Micropython/wasp-os/wasp/apps/hellorooney.py" --eval "wasp.system.register(HelloRooneyApp())"
+
+./tools/wasptool --exec wasp/apps/hellorooney.py --eval 'wasp.system.register(HelloRooneyApp())'
+
+
+./tools/wasptool --exec wasp/apps/ble.py --eval 'wasp.system.register(BleApp())'
+
+./tools/wasptool --exec wasp/apps/sports.py --eval 'wasp.system.register(SportsApp())'
+
+./tools/wasptool --exec wasp/apps/hello.py --eval 'wasp.system.register(HelloApp())'
+
+
+./tools/wasptool --upload wasp/apps/blerooney.py
+
+./tools/wasptool --eval 'wasp.system.register(HelloRooneyApp())'
+
+./tools/wasptool --reset
+ 
+./tools/wasptool --console
+
+------------------------------------
+Remote Compile
+-------------------------------------
+
+./bashScripts/xCompileFileRemote.sh 'Filename.txt'
+
+
+------------------------------------------------
+MyBle App
+------------------------------------------------
+
+1) Reset required to clear existing app file
+./tools/wasptool --reset
+
+2) Upload file and start python console
+./tools/wasptool --upload wasp/apps/myble.py
+./tools/wasptool --reset
+./tools/wasptool --console
+
+3) Register app on device
+from myble import MyBleApp
+wasp.system.register(MyBleApp())
+
+------------------------------------------------
+RooneyBle App
+------------------------------------------------
+
+1) Reset required to clear existing app file
+./tools/wasptool --reset
+
+2) Upload file and start python console
+./tools/wasptool --upload wasp/apps/ble.py
+./tools/wasptool --console
+
+3) Register app on device
+from blerooney import BLERooneyApp
+wasp.system.register(BLERooneyApp())
+
+
+
+
+
+from hellorooney import HelloRooneyApp
+wasp.system.register(HelloRooneyApp())
+
+with open('myble.py', 'r') as f:
+    print(f.read())
+
+
+log = open('myble.py', 'r').read()
+print log
+
+
+os.remove('myble.py')
+>>> os.listdir()
+
+
+import os
+filename = "myble.py"
+statbuf = os.stat(filename)
+print("Modification time: {}".format(statbuf.st_mtime))
+
+
+--------------------------------------------------------
+Make Micropython
+----------------------------------------------------------
+
+ToolChain (looks promising)
+https://github.com/vanbwodonk/gcc-arm-embedded-build-armhf
+
+
+make -j `nproc` BOARD=pinetime 
+
+
+sudo tar xjf gcc-arm-none-eabi-your-version.bz2 -C /usr/share/
+
+
+sudo apt-get install build-essential libffi-dev git pkg-config
+sudo apt-get install arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib
